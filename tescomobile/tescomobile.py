@@ -34,12 +34,14 @@ def requires_token(func, *args):
 
 class TescoMobile(object):
     """a wrapper around the Tesco Mobile HTTPS JSON API"""
+    API_BASE_URL = 'https://apitesco3.mobileaware.com'
+    DEFAULT_USER_AGENT = 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6P Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36'
 
     def __init__(self, phone_number=None, token=None, user_agent=None):
 
         self.user_agent = user_agent
         if not self.user_agent:
-            self.user_agent = 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 6P Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.83 Mobile Safari/537.36'
+            self.user_agent = TescoMobile.DEFAULT_USER_AGENT
 
         self.phone_number = phone_number
         if not self.phone_number:
@@ -76,7 +78,7 @@ class TescoMobile(object):
         }
 
         response = requests.post(
-            'https://apitesco3.mobileaware.com/TescoAPI3/requestpin',
+            TescoMobile.API_BASE_URL + '/TescoAPI3/requestpin',
             headers=headers,
             json=body
         )
@@ -104,7 +106,7 @@ class TescoMobile(object):
         }
 
         response = requests.post(
-            'https://apitesco3.mobileaware.com/TescoAPI3/confirmpin',
+            TescoMobile.API_BASE_URL + '/TescoAPI3/confirmpin',
             headers=headers,
             json=body
         )
@@ -140,7 +142,7 @@ class TescoMobile(object):
         }
 
         response = requests.post(
-            'https://apitesco3.mobileaware.com/TescoAPI3/full',
+            TescoMobile.API_BASE_URL + '/TescoAPI3/full',
             headers=headers,
             json=body
         )
@@ -165,7 +167,7 @@ class TescoMobile(object):
         }
 
         response = requests.get(
-            'https://apitesco3.mobileaware.com/TescoAPI3/invoice/' + self.phone_number,
+            TescoMobile.API_BASE_URL + '/TescoAPI3/invoice/' + self.phone_number,
             headers=headers
         )
 
@@ -189,7 +191,7 @@ class TescoMobile(object):
         }
 
         response = requests.get(
-            'https://apitesco3.mobileaware.com/TescoAPI3/logout',
+            TescoMobile.API_BASE_URL + '/TescoAPI3/logout',
             headers=headers
         )
 
